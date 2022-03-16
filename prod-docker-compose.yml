@@ -1,0 +1,21 @@
+version: '2.2'
+
+services:
+  bot_user_cheker:
+    build:
+      context: backend/
+      dockerfile: Dockerfile
+    container_name: bot_user_cheker
+    command: uvicorn app:app --host 0.0.0.0 --port 8000
+    ports:
+      - "83:8000"
+    expose:
+      - 83
+    env_file:
+      - ./.prod.env
+    networks:
+      - bot_user_cheker_net
+
+networks:
+  bot_user_cheker_net:
+    driver: bridge
