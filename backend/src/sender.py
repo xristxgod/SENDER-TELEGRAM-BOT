@@ -21,6 +21,7 @@ async def send_to_bot(text: str):
                 ) as response:
                     pass
         logger.error(f'MESSAGE HAS BEEN SENT: {text}.')
+        return True
     except Exception as error:
         logger.error(f"ERROR SEND TO BOT: {error}")
         return False
