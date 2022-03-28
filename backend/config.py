@@ -7,8 +7,8 @@ import emoji
 decimals = decimal.Context()
 decimals.prec = 10
 
-tb_token = os.getenv("TB_TOKEN", "5160734992:AAHvy0a1itrW5Tcm24fIylMSxKBYHkK6-R0")
-admin_ids = os.getenv("ADMIN_IDS", "688225742").split(",")
+tb_token = os.getenv("TB_TOKEN", "5160734992:AAhxay0a1itrW5Tcm24fIylMSxKBYHkK6-R0")
+admin_ids = os.getenv("ADMIN_IDS", "688244742").split(",")
 api_url = os.getenv('API_URL', 'http://127.0.0.1:8000')
 
 symbol = {
