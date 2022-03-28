@@ -19,7 +19,7 @@ async def send_to_bot(text: str):
                         "parse_mode": "html"
                     }
                 ) as response:
-                    pass
+                    logger.error(f"SEND ({user_id}): {response.ok}")
         logger.error(f'MESSAGE HAS BEEN SENT: {text}.')
         return True
     except Exception as error:
