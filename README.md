@@ -71,3 +71,23 @@ Response body:
   "status": true // or false if not send
 }
 ```
+
+##Send user verification information.
+
+```shell
+curl -X 'PUT' \
+  'http://.../user/verification' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "email": "The email address of the verified user",
+  "phone": "The phone number of the verified user",
+  "fio": "Last name, first name, patronymic of the verified user"
+}'
+```
+
+```json
+{
+  "status": true // or false if not send
+}
+```
