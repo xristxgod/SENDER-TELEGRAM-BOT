@@ -20,6 +20,11 @@ class BodyBalance(BaseModel):
         if isinstance(self.amount, str):
             self.amount = "%.8f" % decimals.create_decimal(self.amount)
 
+class BodyVerificationUser(BaseModel):
+    email: str = Field(description="The email address of the verified user")
+    phone: str = Field(description="The phone number of the verified user")
+    fio: str = Field(description="Last name, first name, patronymic of the verified user")
+
 class ResponseStatus(BaseModel):
     """The response about the successful sending of the message"""
     status: bool

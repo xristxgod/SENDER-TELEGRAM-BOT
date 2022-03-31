@@ -1,7 +1,7 @@
 import fastapi
 
-from src.schemas import BodyRegUser, BodyBalance, ResponseStatus
-from src.service import send_if_req_new_user, send_if_dec_or_add_balance
+from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser, ResponseStatus
+from src.service import send_if_req_new_user, send_if_dec_or_add_balance, send_if_verification_user
 
 router = fastapi.APIRouter()
 
@@ -24,3 +24,10 @@ async def balance(method: str, body: BodyBalance) -> ResponseStatus:
     else:
         raise fastapi.HTTPException(status_code=fastapi.status.HTTP_404_NOT_FOUND, detail='This method was not found.')
 
+@router.put(
+    "/user/verification",
+    response_model=ResponseStatus,
+    description="The method for sending that the user has been verified"
+)
+async def verification(body: BodyVerificationUser):
+    return ResponseStatus(status=(await send_if_verification_user(body=body)))

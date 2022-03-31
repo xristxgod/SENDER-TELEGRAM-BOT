@@ -1,4 +1,4 @@
-from src.schemas import BodyRegUser, BodyBalance
+from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser
 from src.sender import send_to_bot
 from config import symbol
 
@@ -11,7 +11,6 @@ async def send_if_req_new_user(body: BodyRegUser) -> bool:
         f"- <b>Телефонный номер</b>: {body.phone}"
     ))
 
-
 async def send_if_dec_or_add_balance(body: BodyBalance, status: str) -> bool:
     """Send a message about replenishing/debiting funds from the user."""
     message = f"{symbol['add']} <b>Произошло пополнение: {body.amount} {body.network} </b>" \
@@ -22,4 +21,12 @@ async def send_if_dec_or_add_balance(body: BodyBalance, status: str) -> bool:
         f"<b>Имя пользователя</b>: {body.userName}\n"
         f"<b>ФИО</b>: {body.fio}\n"
         f"<b>Телефонный номер</b>: {body.phone}"
+    ))
+
+async def send_if_verification_user(body: BodyVerificationUser) -> bool:
+    return await send_to_bot(text=(
+        f"{symbol['ver']} <b>Пользователь авторизовался</b>\n"
+        f"- <b>ФИО</b>: {body.fio}\n"
+        f"- <b>Email</b>: {body.email}\n"
+        f"- <b>Телефонный номер</b>: {body.phone}"
     ))
