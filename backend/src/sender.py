@@ -10,21 +10,16 @@ async def send_to_bot(text: str):
     try:
         async with aiohttp.ClientSession() as session:
             for user_id in admin_ids:
-                # Send a request to the bot.
                 async with session.get(
-                        f"https://api.telegram.org/bot{tb_token}/sendMessage",
-                        params={
-                            # You can get it from @username_to_id_bot.
-                            "chat_id": user_id,
-                            "text": text,
-                            # So that you can customize the text.
-                            "parse_mode": "html"
-                        }
+                    f"https://api.telegram.org/bot{tb_token}/sendMessage",
+                    params={
+                        "chat_id": user_id,
+                        "text": text,
+                        "parse_mode": "html"
+                    }
                 ) as response:
-                    if not response.ok:
-                        logger.error(f'MESSAGE WAS NOT SENT: {text}. {await response.text()}')
-                    else:
-                        logger.error(f'MESSAGE HAS BEEN SENT: {text}.')
+                    logger.error(f"SEND ({user_id}): {response.ok}")
+        logger.error(f'MESSAGE HAS BEEN SENT: {text}.')
         return True
     except Exception as error:
         logger.error(f"ERROR SEND TO BOT: {error}")
