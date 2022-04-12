@@ -1,4 +1,9 @@
 BOT USER CHECKER
+
+>START PROD: docker-compose --file prod-docker-compose.yml up --build
+
+>START DEV: docker-compose --file dev-docker-compose.yml up --build
+
 -----
 ###Bot for displaying information about the registration of a new user& Deposits / debits of funds from the user.
 
