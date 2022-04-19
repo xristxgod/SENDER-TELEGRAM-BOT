@@ -25,7 +25,7 @@ async def send_if_dec_or_add_balance(body: BodyBalance, status: str) -> bool:
 
 async def send_if_verification_user(body: BodyVerificationUser) -> bool:
     return await send_to_bot(text=(
-        f"{symbol['ver']} <b>Пользователь авторизовался</b>\n"
+        f"{symbol['ver']} <b>Пользователь верифицирован</b>\n"
         f"- <b>ФИО</b>: {body.fio}\n"
         f"- <b>Email</b>: {body.email}\n"
         f"- <b>Телефонный номер</b>: {body.phone}"
