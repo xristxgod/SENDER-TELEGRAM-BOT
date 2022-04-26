@@ -28,3 +28,10 @@ class BodyVerificationUser(BaseModel):
 class ResponseStatus(BaseModel):
     """The response about the successful sending of the message"""
     status: bool
+        
+class BodyP2PEvent(BaseModel):
+    phone: str
+    currencyFrom: str
+    currencyTo: str
+    amountIn: str
+    amountOut: str
