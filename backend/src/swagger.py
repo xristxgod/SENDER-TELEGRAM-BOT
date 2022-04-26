@@ -1,7 +1,7 @@
 import fastapi
 
-from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser, ResponseStatus
-from src.service import send_if_req_new_user, send_if_dec_or_add_balance, send_if_verification_user
+from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser, ResponseStatus, BodyP2PEvent
+from src.service import send_if_req_new_user, send_if_dec_or_add_balance, send_if_verification_user, send_p2p_event
 
 router = fastapi.APIRouter()
 
@@ -31,3 +31,11 @@ async def balance(method: str, body: BodyBalance) -> ResponseStatus:
 )
 async def verification(body: BodyVerificationUser):
     return ResponseStatus(status=(await send_if_verification_user(body=body)))
+
+@router.put(
+    "/p2p/order/create",
+    response_model=ResponseStatus,
+    description="The method for sending that the user creates new order on P2P service"
+)
+async def p2p_create(body: BodyP2PEvent):
+    return ResponseStatus(status=(await send_p2p_event(body=body)))
