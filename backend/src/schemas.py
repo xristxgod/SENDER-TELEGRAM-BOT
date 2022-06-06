@@ -1,4 +1,7 @@
+from typing import Dict, List
+
 from pydantic import BaseModel, Field
+
 from config import decimals
 
 
@@ -40,3 +43,18 @@ class BodyP2PEvent(BaseModel):
     currencyTo: str
     amountIn: str
     amountOut: str
+
+
+# <<<==============================================>>> TBO <<<=======================================================>>>
+
+
+class BodyTBOSenderData(BaseModel):
+    userId: int
+    nodeTransactionId: int
+    network: str
+    outputs: List[Dict]
+
+
+class BodyTBOStatus(BaseModel):
+    senderData: BodyTBOSenderData
+    userInfo: BodyRegUser

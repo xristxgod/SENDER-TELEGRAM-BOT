@@ -1,8 +1,11 @@
 import fastapi
 
-from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser, ResponseStatus, BodyP2PEvent
-from src.service import send_if_req_new_user, send_if_dec_or_add_balance, send_if_verification_user, send_p2p_event
-
+from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser, ResponseStatus, BodyP2PEvent, BodyTBOStatus
+from src.service import (
+    send_if_req_new_user, send_if_dec_or_add_balance,
+    send_if_verification_user, send_p2p_event,
+    send_message_approved
+)
 
 router = fastapi.APIRouter()
 
@@ -44,3 +47,11 @@ async def verification(body: BodyVerificationUser):
 )
 async def p2p_create(body: BodyP2PEvent):
     return ResponseStatus(status=(await send_p2p_event(body=body)))
+
+@router.post(
+    "/send/large-money",
+    response_model=ResponseStatus,
+    description=""
+)
+async def large_money(body: BodyTBOStatus):
+    return ResponseStatus(status=await send_message_approved(body=body))

@@ -25,3 +25,16 @@ async def send_to_bot(text: str, tb_token, admin_ids):
     except Exception as error:
         logger.error(f"ERROR SEND TO BOT: {error}")
         return False
+
+
+async def send_to_url_put(url, auth: str, **data):
+    try:
+        async with aiohttp.ClientSession(headers={
+            "Authorization": auth
+        }) as session:
+            async with session.put(url, json=data) as response:
+                logger.error(f"SEND TO APPROVAL | STATUS: {response.ok} ")
+                return response
+    except Exception as error:
+        logger.error(f"ERROR: {error}")
+        raise Exception(f"NOT SEND TO APPROVAL")
