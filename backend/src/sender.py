@@ -1,6 +1,7 @@
 import aiohttp
 from config import logger
 
+
 async def send_to_bot(text: str, tb_token, admin_ids):
     """
     Send a message to the telegram bot

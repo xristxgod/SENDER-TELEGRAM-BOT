@@ -2,6 +2,7 @@ from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser, BodyP2PE
 from src.sender import send_to_bot
 from config import symbol, tb_token, admin_ids, p2p_admin_ids, p2p_tb_token
 
+
 async def send_if_req_new_user(body: BodyRegUser) -> bool:
     """Send a message about adding a new user."""
     return await send_to_bot(tb_token=tb_token, admin_ids=admin_ids, text=(
@@ -10,6 +11,7 @@ async def send_if_req_new_user(body: BodyRegUser) -> bool:
         f"- <b>Email</b>: {body.email}\n"
         f"- <b>Телефонный номер</b>: {body.phone}"
     ))
+
 
 async def send_if_dec_or_add_balance(body: BodyBalance, status: str) -> bool:
     """Send a message about replenishing/debiting funds from the user."""
@@ -23,6 +25,7 @@ async def send_if_dec_or_add_balance(body: BodyBalance, status: str) -> bool:
         f"<b>Телефонный номер</b>: {body.phone}"
     ))
 
+
 async def send_if_verification_user(body: BodyVerificationUser) -> bool:
     return await send_to_bot(tb_token=tb_token, admin_ids=admin_ids, text=(
         f"{symbol['ver']} <b>Пользователь прошел верификацию</b>\n"
@@ -30,6 +33,7 @@ async def send_if_verification_user(body: BodyVerificationUser) -> bool:
         f"- <b>Email</b>: {body.email}\n"
         f"- <b>Телефонный номер</b>: {body.phone}"
     ))
+
 
 async def send_p2p_event(body: BodyP2PEvent) -> bool:
     return await send_to_bot(tb_token=p2p_tb_token, admin_ids=p2p_admin_ids, text=(

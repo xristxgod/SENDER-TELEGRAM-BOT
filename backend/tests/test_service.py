@@ -3,6 +3,7 @@ import unittest
 from src.schemas import BodyRegUser, BodyBalance
 from src.service import send_if_req_new_user, send_if_dec_or_add_balance
 
+
 class TestService(unittest.IsolatedAsyncioTestCase):
 
     async def test_send_if_req_new_user(self):

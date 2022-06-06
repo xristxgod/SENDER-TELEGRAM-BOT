@@ -5,8 +5,10 @@ import requests
 
 from config import api_url
 
+
 def _get_response(method, url, data) -> typing.Dict:
     return requests.request(method, url, json=data).json()
+
 
 class TestApiBot(unittest.TestCase):
 

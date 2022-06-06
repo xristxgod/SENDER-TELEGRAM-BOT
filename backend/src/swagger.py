@@ -3,7 +3,9 @@ import fastapi
 from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser, ResponseStatus, BodyP2PEvent
 from src.service import send_if_req_new_user, send_if_dec_or_add_balance, send_if_verification_user, send_p2p_event
 
+
 router = fastapi.APIRouter()
+
 
 @router.post(
     "/reg-user",
@@ -12,6 +14,7 @@ router = fastapi.APIRouter()
 )
 async def reg_user(body: BodyRegUser) -> ResponseStatus:
     return ResponseStatus(status=(await send_if_req_new_user(body=body)))
+
 
 @router.post(
     "/balance/{method}",
@@ -24,6 +27,7 @@ async def balance(method: str, body: BodyBalance) -> ResponseStatus:
     else:
         raise fastapi.HTTPException(status_code=fastapi.status.HTTP_404_NOT_FOUND, detail='This method was not found.')
 
+
 @router.put(
     "/user/verification",
     response_model=ResponseStatus,
@@ -31,6 +35,7 @@ async def balance(method: str, body: BodyBalance) -> ResponseStatus:
 )
 async def verification(body: BodyVerificationUser):
     return ResponseStatus(status=(await send_if_verification_user(body=body)))
+
 
 @router.put(
     "/p2p/order/create",

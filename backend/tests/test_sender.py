@@ -2,6 +2,7 @@ import unittest
 
 from src.sender import send_to_bot
 
+
 class TestSender(unittest.IsolatedAsyncioTestCase):
 
     async def test_send_to_bot(self):
