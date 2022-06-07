@@ -67,6 +67,6 @@ class ResponseStatus(BaseModel):
     messageError: Optional[str]
 
     def __init__(self, **kwargs):
-        super(ResponseStatus).__init__(**kwargs)
+        super(ResponseStatus, self).__init__(**kwargs)
         if self.messageError is None:
             del self.messageError
