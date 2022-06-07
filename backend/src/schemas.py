@@ -1,10 +1,14 @@
-from typing import Dict, List
+from typing import Optional, List, Dict
 
 from pydantic import BaseModel, Field
 
 from config import decimals
 
 
+# <<<====================================>>> Body <<<================================================================>>>
+
+
+# USER BOT
 class BodyRegUser(BaseModel):
     """Adding new users"""
     email: str = Field(description="Email of the registered (new) user")
@@ -12,6 +16,7 @@ class BodyRegUser(BaseModel):
     fio: str = Field(description="Surname, first name, family name of the registered (new) user")
 
 
+# USER BOT
 class BodyBalance(BaseModel):
     """Replenishment/debiting of funds from the user"""
     userName: str = Field(description="The username of the user whose balance was replenished/debited")
@@ -26,17 +31,14 @@ class BodyBalance(BaseModel):
             self.amount = "%.8f" % decimals.create_decimal(self.amount)
 
 
+# USER BOT
 class BodyVerificationUser(BaseModel):
     email: str = Field(description="The email address of the verified user")
     phone: str = Field(description="The phone number of the verified user")
     fio: str = Field(description="Last name, first name, patronymic of the verified user")
 
 
-class ResponseStatus(BaseModel):
-    """The response about the successful sending of the message"""
-    status: bool
-
-
+# P2P BOT
 class BodyP2PEvent(BaseModel):
     phone: str
     currencyFrom: str
@@ -45,16 +47,26 @@ class BodyP2PEvent(BaseModel):
     amountOut: str
 
 
-# <<<==============================================>>> TBO <<<=======================================================>>>
+# TBO BOT
+class BodyTBOMessage(BaseModel):
+    email: str = Field(description="Sender's email")
+    phone: str = Field(description="Sender's phone number")
+    fio: str = Field(description="Sender's full name")
+    userId: int = Field(description="ID of the user who wants to send the transaction.")
+    nodeTransactionId: int = Field(description="Transaction ID")
+    network: str = Field(description="Network")
+    outputs: List[Dict[str, str]] = Field(description="The recipient/s of the transaction and the amount sent!")
 
 
-class BodyTBOSenderData(BaseModel):
-    userId: int
-    nodeTransactionId: int
-    network: str
-    outputs: List[Dict]
+# <<<====================================>>> Response <<<============================================================>>>
 
 
-class BodyTBOStatus(BaseModel):
-    senderData: BodyTBOSenderData
-    userInfo: BodyRegUser
+class ResponseStatus(BaseModel):
+    """The response about the successful sending of the message"""
+    status: bool
+    messageError: Optional[str]
+
+    def __init__(self, **kwargs):
+        super(ResponseStatus).__init__(**kwargs)
+        if self.messageError is None:
+            del self.messageError

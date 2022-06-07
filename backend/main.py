@@ -1,5 +1,9 @@
+import asyncio
+
 import fastapi
+
 from src.swagger import router
+
 
 app = fastapi.FastAPI(
     title=f"BotUserCheck",
@@ -7,4 +11,10 @@ app = fastapi.FastAPI(
     version="1.0.0",
 )
 
+
 app.include_router(router)
+
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run("main:app")
