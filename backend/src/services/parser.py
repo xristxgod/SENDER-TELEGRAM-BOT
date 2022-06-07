@@ -56,7 +56,7 @@ class MessageParser:
         })
         return await Sender.send_to_support(
             tb_token=Config.BOT_APPROVED_TOKEN,
-            support_id=[Config.SUPPORT_ID],
+            support_id=Config.SUPPORT_ID,
             text=(
                 f"{SYMBOL.get('transaction')} <b>Создание заявки на транзакцию</b>\n"
                 f"- <b>Телефонный номер:</b> {body.phone}\n"
