@@ -47,7 +47,7 @@ class Sender:
                         }
                 ) as response:
                     logger.error(f"SEND ({support_id}): {response.ok}")
-            logger.error(f'MESSAGE HAS BEEN SENT: {text}.')
+            logger.error(f'MESSAGE HAS BEEN SENT:\n{text}.')
             return True
         except Exception as error:
             logger.error(f"ERROR SEND TO BOT: {error}")

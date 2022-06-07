@@ -1,4 +1,4 @@
-from src.schemas import BodyTBOMessage
+from src.schemas import BodyTBOMessage, BodyTelegramMessage
 from src.services.parser import MessageParser
 from src.helper.types import SetMessage
 from src.helper.repository import message_repository
@@ -15,3 +15,6 @@ class TBOService:
         ))
         return await MessageParser.send_approved_event(body=body)
 
+    @staticmethod
+    async def update_transaction(body: BodyTelegramMessage) -> bool:
+        pass

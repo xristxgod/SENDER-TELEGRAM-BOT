@@ -1,7 +1,7 @@
 import fastapi
 
 from src.schemas import (
-    BodyRegUser, BodyBalance, BodyVerificationUser,
+    BodyRegUser, BodyBalance, BodyVerificationUser, BodyTelegramMessage,
     BodyP2PEvent, BodyTBOMessage, ResponseStatus
 )
 from src.services.parser import MessageParser
@@ -72,11 +72,21 @@ async def send_large_money(body: BodyTBOMessage):
     return ResponseStatus(status=(await TBOService.set_transaction(body=body)))
 
 
-@router.get(
-    "/helper",
-    description="Sending to the bot to confirm the transaction!",
+@router.put(
+    "/bot/update",
+    description="",
     response_model=ResponseStatus,
     tags=["APPROVED BOT HELPER"]
 )
-async def helper():
+async def update_bot(body: BodyTelegramMessage):
+    return ResponseStatus(status=(await TBOService.update_transaction(body=body)))
+
+
+@router.get(
+    "/repository/cache",
+    description="",
+    # response_model="",
+    tags=["APPROVED BOT HELPER"]
+)
+async def get_repository_cache():
     pass

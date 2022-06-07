@@ -9,10 +9,10 @@ SYMBOL = {
     "dec": emoji.emojize(":red_circle:"),
     "reg": emoji.emojize(":yellow_circle:"),
     "ver": emoji.emojize(":ok_hand:", language='alias'),
-    "user": "",
-    "transaction": "",
-    "approve": "",
-    "reject": ""
+    "user": emoji.emojize(":bust_in_silhouette:"),
+    "transaction": emoji.emojize(":money_with_wings:"),
+    "approve": emoji.emojize(":check_mark_button:"),
+    "reject": emoji.emojize(":cross_mark_button:")
 }
 
 

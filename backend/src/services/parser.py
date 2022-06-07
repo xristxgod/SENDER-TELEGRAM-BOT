@@ -51,23 +51,20 @@ class MessageParser:
     @staticmethod
     async def send_approved_event(body: BodyTBOMessage) -> bool:
         outputs_correct = Utils.get_outputs(outputs=body.outputs, network=body.network)
-        data_for_button = Utils.get_hex_data(data={
-            "userId": body.userId, "nodeTransactionId": body.nodeTransactionId, "network": body.network
-        })
+        data_for_button = f"{body.userId}-{body.network}-{body.nodeTransactionId}"
         return await Sender.send_to_support(
             tb_token=Config.BOT_APPROVED_TOKEN,
-            support_id=[Config.SUPPORT_ID],
+            support_id=Config.SUPPORT_ID,
             text=(
-                f"{SYMBOL.get('transaction')} <b>Создание заявки на транзакцию</b>\n"
+                f"{SYMBOL.get('transaction')} <b>Заявки на транзакцию</b>\n"
                 f"- <b>Телефонный номер:</b> {body.phone}\n"
                 f"- <b>Email:</b> {body.email}\n"
                 f"- <b>ФИО:</b> {body.fio}\n"
-                f"- <b>ID Пользователя:</b> {body.userId} | <b>ID Транзакции:</b> {body.nodeTransactionId}\n"
-                f"<<<=====================================================================================>>>\n"
+                f"- <b>ID Пользователя:</b> {body.userId} | <b>ID Транзакции:</b> {body.nodeTransactionId}\n\n"
                 f"{outputs_correct}"
             ),
             buttons=[
-                {"text": f"{SYMBOL.get('approve')} Approve", "callback_data": f"data_approve_{data_for_button}"},
-                {"text": f"{SYMBOL.get('reject')} Reject", "callback_data": f"data_reject_{data_for_button}"}
+                {"text": f"{SYMBOL.get('approve')} Одобрить", "callback_data": f"data-approve-{data_for_button}"},
+                {"text": f"{SYMBOL.get('reject')} Отклонить", "callback_data": f"data-reject-{data_for_button}"}
             ]
         )

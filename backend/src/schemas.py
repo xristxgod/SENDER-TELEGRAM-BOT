@@ -58,6 +58,13 @@ class BodyTBOMessage(BaseModel):
     outputs: List[Dict[str, str]] = Field(description="The recipient/s of the transaction and the amount sent!")
 
 
+class BodyTelegramMessage(BaseModel):
+    userId: int = Field(description="ID of the user who wants to send the transaction.")
+    nodeTransactionId: int = Field(description="Transaction ID")
+    network: str = Field(description="Network")
+    status: bool = Field(description="")
+
+
 # <<<====================================>>> Response <<<============================================================>>>
 
 
@@ -67,6 +74,6 @@ class ResponseStatus(BaseModel):
     messageError: Optional[str]
 
     def __init__(self, **kwargs):
-        super(ResponseStatus).__init__(**kwargs)
+        super(ResponseStatus, self).__init__(**kwargs)
         if self.messageError is None:
             del self.messageError
