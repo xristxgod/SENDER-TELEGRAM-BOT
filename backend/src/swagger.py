@@ -2,10 +2,11 @@ import fastapi
 
 from src.schemas import (
     BodyRegUser, BodyBalance, BodyVerificationUser, BodyTelegramMessage,
-    BodyP2PEvent, BodyTBOMessage, ResponseStatus
+    BodyP2PEvent, BodyTBOMessage, ResponseStatus, ResponseRepositoryCache
 )
 from src.services.parser import MessageParser
 from src.services.service import TBOService
+from src.helper.repository import message_repository
 
 router = fastapi.APIRouter()
 
@@ -85,8 +86,8 @@ async def update_bot(body: BodyTelegramMessage):
 @router.get(
     "/repository/cache",
     description="",
-    # response_model="",
+    response_model=ResponseRepositoryCache,
     tags=["APPROVED BOT HELPER"]
 )
 async def get_repository_cache():
-    pass
+    return ResponseRepositoryCache(message=message_repository.messages)

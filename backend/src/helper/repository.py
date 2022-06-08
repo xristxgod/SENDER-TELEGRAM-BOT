@@ -27,11 +27,11 @@ class MessageRepository(MessageController):
                         f"TX INFO: {self.__messages.get(data.userId)[data.network]}"
                     ))
                 self.__messages.get(data.userId)[data.network] = (
-                    datetime.timestamp(datetime.now()), data.nodeTransactionId, data.outputs
+                    int(datetime.timestamp(datetime.now())), data.nodeTransactionId, data.outputs
                 )
             else:
                 self.__messages.update({data.userId: {
-                    data.network: (datetime.timestamp(datetime.now()), data.nodeTransactionId, data.outputs)
+                    data.network: (int(datetime.timestamp(datetime.now())), data.nodeTransactionId, data.outputs)
                 }})
             return True, None
         except Exception as error:

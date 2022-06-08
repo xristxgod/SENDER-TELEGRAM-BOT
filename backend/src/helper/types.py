@@ -12,7 +12,7 @@ SYMBOL = {
     "user": emoji.emojize(":bust_in_silhouette:"),
     "transaction": emoji.emojize(":money_with_wings:"),
     "approve": emoji.emojize(":check_mark_button:"),
-    "reject": emoji.emojize(":cross_mark_button:")
+    "reject": emoji.emojize(":x:", language='alias')
 }
 
 

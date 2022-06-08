@@ -55,14 +55,17 @@ class BodyTBOMessage(BaseModel):
     userId: int = Field(description="ID of the user who wants to send the transaction.")
     nodeTransactionId: int = Field(description="Transaction ID")
     network: str = Field(description="Network")
-    outputs: List[Dict[str, str]] = Field(description="The recipient/s of the transaction and the amount sent!")
+    outputs: List[Dict] = Field(description="The recipient/s of the transaction and the amount sent!")
 
 
 class BodyTelegramMessage(BaseModel):
     userId: int = Field(description="ID of the user who wants to send the transaction.")
     nodeTransactionId: int = Field(description="Transaction ID")
     network: str = Field(description="Network")
-    status: bool = Field(description="")
+    status: bool = Field(description="Approved is True | Reject is False")
+    outputs: Optional[List[Dict]] = Field(
+        description="The recipient/s of the transaction and the amount sent!", default=[{}]
+    )
 
 
 # <<<====================================>>> Response <<<============================================================>>>
@@ -77,3 +80,7 @@ class ResponseStatus(BaseModel):
         super(ResponseStatus, self).__init__(**kwargs)
         if self.messageError is None:
             del self.messageError
+
+
+class ResponseRepositoryCache(BaseModel):
+    message: Dict
