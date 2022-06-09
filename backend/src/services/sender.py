@@ -95,7 +95,7 @@ class SenderToSite:
             async with aiohttp.ClientSession(headers=SenderToSite.__get_headers()) as session:
                 async with session.put(
                         url=SenderToSite.URL_APPROVED if status else SenderToSite.URL_REJECT,
-                        data={
+                        json={
                             "userId": body.userId,
                             "nodeTransactionId": body.nodeTransactionId,
                             "network": body.network,
