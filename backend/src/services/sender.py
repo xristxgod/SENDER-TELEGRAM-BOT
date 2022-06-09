@@ -28,7 +28,6 @@ class Sender:
             logger.error(f"ERROR SEND TO BOT: {error}")
             return False
 
-
     @staticmethod
     async def send_to_support(
             text: str, tb_token: str, support_ids: List[int], buttons: List[Dict] = None
@@ -79,6 +78,7 @@ class Sender:
             logger.error(f"ERROR: {error}")
             return False
 
+
 class SenderToSite:
     URL_APPROVED = Config.APPROVED_DOMAIN + "/api/admin/approved"
     URL_REJECT = Config.APPROVED_DOMAIN + "/api/admin/reject"
@@ -95,7 +95,7 @@ class SenderToSite:
             async with aiohttp.ClientSession(headers=SenderToSite.__get_headers()) as session:
                 async with session.put(
                         url=SenderToSite.URL_APPROVED if status else SenderToSite.URL_REJECT,
-                        data={
+                        json={
                             "userId": body.userId,
                             "nodeTransactionId": body.nodeTransactionId,
                             "network": body.network,

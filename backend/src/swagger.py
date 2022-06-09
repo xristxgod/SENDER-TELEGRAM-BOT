@@ -90,4 +90,4 @@ async def update_bot(body: BodyTelegramMessage):
     tags=["APPROVED BOT HELPER"]
 )
 async def get_repository_cache():
-    return ResponseRepositoryCache(message=message_repository.messages)
+    return ResponseRepositoryCache(message=await message_repository.messages)

@@ -59,7 +59,6 @@ class BodyTBOMessage(BaseModel):
 
 
 class BodyTelegramMessage(BaseModel):
-    support_id: int = Field(description="ID support")
     userId: int = Field(description="ID of the user who wants to send the transaction.")
     nodeTransactionId: int = Field(description="Transaction ID")
     network: str = Field(description="Network")

@@ -4,7 +4,6 @@ from src.helper.types import SYMBOL
 
 
 class Utils:
-
     @staticmethod
     def get_outputs(outputs: List[Dict], network: str) -> str:
         outputs_text = ""
