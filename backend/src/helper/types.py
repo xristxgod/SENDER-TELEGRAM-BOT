@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Tuple, Dict
 from dataclasses import dataclass
 
 import emoji
@@ -38,7 +38,7 @@ class MessageController:
     """
     This class is used for interaction
     """
-    def set_message(self, data: SetMessage) -> bool:
+    def set_message(self, data: SetMessage, supports_info: List[Tuple[int, int]]) -> bool:
         raise NotImplementedError
 
     def get_message(self, user_id: int, network: str) -> Dict:

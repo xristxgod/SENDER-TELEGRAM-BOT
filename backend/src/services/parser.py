@@ -1,6 +1,7 @@
+from typing import Optional, List, Tuple
+
 from src.schemas import BodyRegUser, BodyBalance, BodyVerificationUser, BodyP2PEvent, BodyTBOMessage
 from src.services.sender import Sender
-
 from src.helper.utils import Utils
 from src.helper.types import SYMBOL
 from config import Config
@@ -49,12 +50,12 @@ class MessageParser:
         ))
 
     @staticmethod
-    async def send_approved_event(body: BodyTBOMessage) -> bool:
+    async def send_approved_event(body: BodyTBOMessage) -> Optional[List[Tuple[int, int]]]:
         outputs_correct = Utils.get_outputs(outputs=body.outputs, network=body.network)
         data_for_button = f"{body.userId}-{body.network}-{body.nodeTransactionId}"
         return await Sender.send_to_support(
             tb_token=Config.BOT_APPROVED_TOKEN,
-            support_id=Config.SUPPORT_ID,
+            support_ids=Config.SUPPORT_IDS,
             text=(
                 f"{SYMBOL.get('transaction')} <b>Заявки на транзакцию</b>\n"
                 f"- <b>Телефонный номер:</b> {body.phone}\n"

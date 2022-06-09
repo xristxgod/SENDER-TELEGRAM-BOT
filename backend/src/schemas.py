@@ -59,6 +59,7 @@ class BodyTBOMessage(BaseModel):
 
 
 class BodyTelegramMessage(BaseModel):
+    support_id: int = Field(description="ID support")
     userId: int = Field(description="ID of the user who wants to send the transaction.")
     nodeTransactionId: int = Field(description="Transaction ID")
     network: str = Field(description="Network")
@@ -66,6 +67,7 @@ class BodyTelegramMessage(BaseModel):
     outputs: Optional[List[Dict]] = Field(
         description="The recipient/s of the transaction and the amount sent!", default=[{}]
     )
+    text: Optional[str] = Field(description="Message  text")
 
 
 # <<<====================================>>> Response <<<============================================================>>>

@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Tuple
+from typing import Optional, Dict, List, Tuple
 from datetime import datetime
 
 from src.helper.types import MessageController, SetMessage
@@ -12,13 +12,13 @@ class MessageRepository(MessageController):
     def __init__(self):
         """
         {
-            "userId": {"network": (timestamp, nodeTransactionId, [{"address": "amount"}])},
-            "123": {"bsc_bip20_usdt": (1653880199, 666, [{"0x7AE2F5B9e386cd1B50A4550696D957cB4900f03a": "14.0000000"}])
+            "userId": {"network": (timestamp, nodeTransactionId, [{"address": "amount"}], [(support_id, message_id)]), text},
+            "123": {"bsc_bip20_usdt": (1653880199, 666, [{"0x7AE2F5B9e386cd1B50A4550696D957cB4900f03a": "14.0000000"}], [(123241, 23)] = text)
         }
         """
         self.__messages: Dict = {}
 
-    def set_message(self, data: SetMessage) -> Tuple[bool, Optional[str]]:
+    def set_message(self, data: SetMessage, supports_info: List[Tuple[int, int]]) -> Tuple[bool, Optional[str]]:
         try:
             if data.userId in self.__messages.keys():
                 if data.network in self.__messages.get(data.userId).keys():
@@ -27,11 +27,13 @@ class MessageRepository(MessageController):
                         f"TX INFO: {self.__messages.get(data.userId)[data.network]}"
                     ))
                 self.__messages.get(data.userId)[data.network] = (
-                    int(datetime.timestamp(datetime.now())), data.nodeTransactionId, data.outputs
+                    int(datetime.timestamp(datetime.now())), data.nodeTransactionId, data.outputs, supports_info
                 )
             else:
                 self.__messages.update({data.userId: {
-                    data.network: (int(datetime.timestamp(datetime.now())), data.nodeTransactionId, data.outputs)
+                    data.network: (
+                        int(datetime.timestamp(datetime.now())), data.nodeTransactionId, data.outputs, supports_info
+                    )
                 }})
             return True, None
         except Exception as error:
