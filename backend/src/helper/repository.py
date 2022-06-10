@@ -12,6 +12,11 @@ class MessageRepository(MessageController):
     """
     This class is used to store messages
     """
+    def __new__(cls):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(MessageRepository, cls).__new__(cls)
+        return cls.instance
+    
     def __init__(self):
         """
         {
